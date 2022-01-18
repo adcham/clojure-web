@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- see base.html for the styling of this form -->
+<div style="padding:15px;">
+    <form method="post" action="reviews" class="settings">
+        {% csrf-field %}
+        <label for="book_id">Book ID#</label>
+        <input type="text" id="book_id" name="book_id" value="">
+
+        <label for="reviewer">Reviewer</label>
+        <input type="text" id="reviewer" name="reviewer" value="">
+
+        <label for="review">Review</label>
+        <input type="text" id="review" name="review" value="">
+
+        <label for="published">Published</label>
+        <input type="text" id="published" name="published" value="">
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<table border="1" >
+    <tr>
+        <th>Book id</th>
+        <th>Reviewer</th>
+        <th>Review</th>
+        <th>Published on</th>
+    </tr>
+    {% for item in items %}
+    <tr>
+        <td>{{item.book_id}}</td>
+        <td>{{item.reviewer}}</td>
+        <td>{{item.review}}</td>
+        <td>{{item.published}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

@@ -18,5 +18,14 @@
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get home-page}]
-   ["/about" {:get about-page}]])
+   ["/about" {:get about-page}]
+   ["/reviews" {:get reviews-page
+                :post save-review}]])
 
+(defn save-review [{:keys [params]}]
+    (do
+        (db/create-review! params)
+        (response/found "/reviews")))
+
+(defn reviews-page [request]
+  (layout/render request "reviews.html" {:items (db/get-reviews)}))
